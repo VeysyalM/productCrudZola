@@ -145,7 +145,8 @@
 					<excludes>
 						<exclude>**/com/colin/SpringCrudApplication.class</exclude>
 						<exclude>**/com/colin/models/*</exclude>
-						<exclude>**/com/colin/repo/*</exclude>
+						<exclude>**/com/colin/repo</exclude>
+						
 					</excludes>
 				</configuration>
 			</plugin>
@@ -154,6 +155,9 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 
 				<configuration>
+				<excludes>
+					<exclude>**/com/colin/repo</exclude>
+				</excludes>
 					<printSummary>false</printSummary>
 					<redirectTestOutputToFile>true</redirectTestOutputToFile>
 					<forkCount>3</forkCount>
