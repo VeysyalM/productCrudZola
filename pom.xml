@@ -115,24 +115,41 @@
 					</excludes>
 				</configuration>
 			</plugin>
-				<plugin>
-				    <groupId>org.jacoco</groupId>
-				    <artifactId>jacoco-maven-plugin</artifactId>
-				    <executions>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+
+				<executions>
+					<!-- prepare agent for measuring unit tests -->
 					<execution>
-					    <goals>
-						<goal>prepare-agent</goal>
-					    </goals>
+						<id>prepare-unit-tests</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+						<configuration>
+							<append>true</append>
+							<destFile>${sonar.jacoco.reportPath}</destFile>
+							<!-- Sets the VM argument line used when unit tests are run. -->
+							<propertyName>surefireArgLine</propertyName>
+						</configuration>
 					</execution>
 					<execution>
-					    <id>report</id>
-					    <phase>prepare-package</phase>
-					    <goals>
-						<goal>report</goal>
-					    </goals>
+						<id>report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
 					</execution>
-				    </executions>
-				</plugin>
+				</executions>
+				<configuration>
+					<excludes>
+						<exclude>**/com/colin/SpringCrudApplication.class</exclude>
+						<exclude>**/com/colin/models/*</exclude>
+						<exclude>**/com/colin/repo</exclude>
+						
+					</excludes>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
